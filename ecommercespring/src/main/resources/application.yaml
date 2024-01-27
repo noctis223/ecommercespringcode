@@ -1,0 +1,48 @@
+spring:
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/realms/Angular/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8180/realms/Angular
+  application:
+    name: Ecommerce-app
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/ecommerce'
+    username: postgres
+    password: Noctis22
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: '8082'
+  #ssl:
+  #key-store-password: password_certificate
+  #key-store-type: PKCS12
+  #key-store: /home/debian/ssl-cert/certificate.p12
+
+  keycloak:
+    resource: Ecommerce
+    jwt:
+      auth:
+        converter:
+          resource-id: springboot-keycloak-client
+          principal-attribute: preferred_username
+
+  logging:
+    level:
+      it:
+        frankladder: DEBUG
+      org:
+        springframework: INFO
+  multipart:
+    enabled: 'true'
